@@ -1,0 +1,10 @@
+<?php
+// Make sure it's run from CLI
+if(php_sapi_name() != 'cli' && !empty($_SERVER['REMOTE_ADDR'])) exit("Access Denied.");	
+
+// Please configure this
+$url = "http://localhost/subiz_sms";
+
+fclose(fopen($url."/index.php/Home/triggerIcommingSms/", "r"));
+
+?>
