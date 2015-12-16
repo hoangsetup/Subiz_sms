@@ -107,6 +107,8 @@
 				exit();
 			$flag = FALSE;
 			foreach ($rules as $rule) {
+				if($rule['IsActive'] !== 1)
+					continue;
 				if($rule['SenderNumber'] === $sms['SenderNumber']){
 					if((!isset($rule['HasTheWords']) || trim($rule['HasTheWords']) === '')){
 						$flag = true;
