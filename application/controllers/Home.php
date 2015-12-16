@@ -107,7 +107,7 @@
 				exit();
 			$flag = FALSE;
 			foreach ($rules as $rule) {
-				if($rule['IsActive'] !== 1)
+				if(!$rule['IsActive'])
 					continue;
 				if($rule['SenderNumber'] === $sms['SenderNumber']){
 					if((!isset($rule['HasTheWords']) || trim($rule['HasTheWords']) === '')){
@@ -159,6 +159,33 @@
 				);
 			}
 			$this->Mfwstatus->addFwstatus($status);
+		}
+
+		public function checkmailgun()
+		{
+			if(isset($_POST['api']) && isset($_POST['domain']) && $this->input->is_ajax_request()){
+				$ch = curl_init();
+				curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+				curl_setopt($ch, CURLOPT_USERPWD, 'api:'.$_POST['api']);
+				curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+				curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');
+				curl_setopt($ch, CURLOPT_URL, $_POST['domain']);
+				curl_setopt($ch, CURLOPT_POSTFIELDS, 
+			            array('from' =>'from@gmail.com',
+			                  'to' => 'to@gmail.com',
+			                  'subject' => 'Check api key!',
+			                  'text' => 'text'));
+				$result = curl_exec($ch);
+				$info = curl_getinfo($ch);
+				curl_close($ch);
+				$dic = array(
+					'message' => $result,
+					'http_code' => $info['http_code']
+				);
+				echo json_encode($dic);
+			}else{
+				echo "Hack me!";
+			}
 		}
 
 

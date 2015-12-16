@@ -9,11 +9,11 @@
 </div>
 <div class="form-group">
 	<label>Mail Gun Domain</label>
-	<input type="text" class="form-control" value="<?=$rule['MailGunDomain']?>" name="MailGunDomain">
+	<input type="text" class="form-control" value="<?=$rule['MailGunDomain']?>" name="MailGunDomain" required>
 </div>
 <div class="form-group">
 	<label>MailGun Api Key</label>
-	<input type="text" class="form-control" value="<?=$rule['MailGunApiKey']?>" name="MailGunApiKey">
+	<input type="text" class="form-control" value="<?=$rule['MailGunApiKey']?>" name="MailGunApiKey" required>
 </div>
 <div class="form-group">
 	<label>From</label>

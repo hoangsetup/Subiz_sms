@@ -22,6 +22,82 @@
     var refreshLogs = setInterval(function () {
       $('#logs-rules').load("<?php echo base_url().'/index.php/Home/homecontent'; ?>");
     }, 2 * 60 * 1000);
+
+    var server_url = '<?php $this->load->helper('url'); echo base_url(); ?>';
+  var html_addnew = '<div class=\"form-group\"><label>Sender Number</label><input type=\"text\" class=\"form-control\" name=\"SenderNumber\" ></div><div class=\"form-group\"><label>Has the words</label><input type=\"text\" class=\"form-control\" name=\"HasTheWords\"></div><div class=\"form-group\"><label>Mail Gun Domain</label><input type=\"text\" class=\"form-control\" name=\"MailGunDomain\" required></div><div class=\"form-group\"><label>MailGun Api Key</label><input type=\"text\" class=\"form-control\"  name=\"MailGunApiKey\" required></div><div class=\"form-group\"><label>From</label><input type=\"text\" class=\"form-control\" name=\"From\" placeholder=\"Subiz User <Subiz.com>\"></div><div class=\"form-group\"><label>To</label><input type=\"text\" class=\"form-control\" name=\"To\" placeholder=\"Baz <to@gmail.com>\"></div><div class=\"form-group\"><label>Subject</label><input type=\"text\" class=\"form-control\" name=\"Subject\"></div><div class=\"checkbox\"><label><input type=\"checkbox\" checked name=\"IsActive\">Active</label></div>';
+
+    function onAddnewClick () {
+      $('.modal-title').text('Add new rule');
+      $('#modal-content').html(html_addnew);
+      $('#modalRule').modal();
+    }
+
+    function onEditRuleClick(id){
+      $.ajax({
+        method: 'POST',
+        url: server_url + 'index.php/Home/RuleControler',
+        data: {'action': 'getdetail', 'id': id},
+        dataType: "text",  
+            cache:false,
+            success: function (data) {
+              $('.modal-title').text('Edit rule');
+              $('#modal-content').html(data);
+              $('#modalRule').modal();    
+            },
+            error: function(data){
+              console.log(data);
+            }
+      });
+    }
+
+    function onDeleteRuleClick (id) {
+      if (confirm('Are you sure?')) {
+        $.ajax({
+          method: 'POST',
+          url: server_url + 'index.php/Home/RuleControler',
+          data: {'action': 'delete', 'id': id},
+          dataType: "text",  
+            cache:false,
+            success: function (data) {
+                $('#row'+id).empty();
+            },
+            error: function(data){
+              alert('Error!');
+            }
+        });
+      };
+    }
+
+    function checkMailgunApi () {
+      var mail_api_key = $("[name='MailGunApiKey']").val();
+      var mail_domain = $("[name='MailGunDomain']").val();
+      $.ajax({
+          type: "POST",
+          url: server_url + 'index.php/Home/checkmailgun',
+          dataType: 'json',
+          data: {'api': mail_api_key, 'domain': mail_domain},
+          beforeSend: function(){
+            $('#btncheck').html('Checking...');
+          },
+          success: function (data){
+              console.log(data);
+              var http_code = data['http_code'];
+              if(http_code === 404 || http_code === 0){
+                alert('Error: Domain is not corect!')
+              }else if(http_code === 401){
+                alert('Error: Api key is not corect!');
+              }else{
+                alert('Success!');
+              }
+          },
+          error: function (xhr) {
+            console.log(xhr);
+            alert('Unknown error!')
+          }
+      }).done(function() {
+          $('#btncheck').html('Check api key');
+      });
+    }
   </script>
 </head>
 <body>
@@ -81,9 +157,10 @@
               <td><?=$rule['SenderNumber']?></td>
               <td><?=$rule['HasTheWords']?></td>
               <td>
-                <div class="btn-group btn-group-justified" >
-                  <button type="button" class="btn btn-warning" onclick="onEditRuleClick('<?=$rule['Id']?>');">Edit</button>
-                  <button type="button" class="btn btn-danger" onclick="onDeleteRuleClick(<?=$rule['Id']?>);">Delete</button>
+                <div class="btn-group btn-group" >
+                  <button type="button" class="btn btn-warning" onclick="onEditRuleClick('<?=$rule['Id']?>');"><span class="glyphicon glyphicon-pencil"></span></button>
+
+                  <button type="button" class="btn btn-danger" onclick="onDeleteRuleClick(<?=$rule['Id']?>);"><span class="glyphicon glyphicon-remove"></span></button>
                 </div>
               </td>
             </tr>             
@@ -115,6 +192,7 @@
           <!-- Content modal -->
         </div>
         <div class="modal-footer">
+          <button id="btncheck" type="button" class="btn btn-info" onclick="checkMailgunApi();">Check api key</button>
           <input type="submit" name="submit" class="btn btn-success" value="Save">
         </div>
       </div>
