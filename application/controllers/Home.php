@@ -193,7 +193,12 @@
 		{
 			$data['devices'] = $this->Msubiz->getAllDeviceInfo();
 			$data['gammu'] = $this->Msubiz->getGammuInfo();
-			$data['status'] = $this->Msubiz->getModemStatus('mdsms');
+			$stt = array();
+			foreach($data['devices'] as $device){
+				$stt[$device['ID']] = $this->Msubiz->getModemStatus($device['ID']);
+			}
+			$data['status'] = $stt;
+			//$data['status'] = $this->Msubiz->getModemStatus('viettel1');
 			$this->load->view('gammu_info', $data);
 		}
 	}

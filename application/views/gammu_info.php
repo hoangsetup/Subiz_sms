@@ -4,20 +4,22 @@ return;
 $db_schema = (isset($gammu))?$gammu['Version']:'unknown';
 $_class = '';
 $_stt = 'Unknown';
-if($status == 1){
+foreach($devices as  $info){
+
+if($status[$info['ID']] == 1){
 	$_class = 'label label-success';
 	$_stt = 'Connect';
 }
-if($status == 0){
+if($status[$info['ID']] == 0){
 	$_class = 'label label-danger';
 	$_stt = 'Disconnect';
 }
-if($status == -1){
+if($status[$info['ID']] == -1){
 	$_class = 'label label-default';
 	$_stt = 'Unknown';
 }
 
-foreach ($devices as $info) {
+//foreach ($devices as $info) {
 	?>
 <div class="panel panel-default">
   <div class="panel-heading">ID: <?=$info['ID']?> <label class="<?php echo $_class ?>"><?=$_stt?></label></div>
