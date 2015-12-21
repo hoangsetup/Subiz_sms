@@ -104,12 +104,15 @@
 <nav class="navbar navbar-inverse">
   <div class="container-fluid">
     <div class="navbar-header">
-      <a class="navbar-brand" href="#">SubizSms Hack</a>
+      <a class="navbar-brand" href="#">SubizSms</a>
     </div>
     <div>
       <ul class="nav navbar-nav">
         <li class="active"><a href="#home">Home</a></li>
         <li><a href="#rules">Rules</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="<?php echo base_url(); ?>index.php/Login/logout"><span class="glyphicon glyphicon-user"></span> Logout</a></li>
       </ul>
     </div>
   </div>

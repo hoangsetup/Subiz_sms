@@ -24,5 +24,11 @@ class Login extends CI_Controller
 		$this->session->sess_destroy();
 		redirect('login');
 	}
+
+	function ChangePassword()
+	{
+		if($_POST) $this->Muser->ChangePassword();
+		redirect('login');
+	}
 }
 ?>
