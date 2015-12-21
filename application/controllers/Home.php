@@ -11,14 +11,15 @@
 			$this->load->Model('Msubiz');
 			$this->load->helper('url');
 			$this->load->library('session');
+			
+		}
+		public function index()
+		{
 			if($login)
 			{
 				// session check
 				if($this->session->userdata('loggedin')==NULL) redirect('login');
 			}
-		}
-		public function index()
-		{
 			$rules = array();
 			$smses = array();
 			$temp_smses = $this->Msms->getAllSmses();
