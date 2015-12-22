@@ -202,7 +202,7 @@
 			$data['gammu'] = $this->Msubiz->getGammuInfo();
 			$stt = array();
 			foreach($data['devices'] as $device){
-				$stt[$device['ID']] = $this->Msubiz->getModemStatus($device['ID']);
+				$stt[$device['IMEI']] = $this->Msubiz->getModemStatus($device['IMEI']);
 			}
 			$data['status'] = $stt;
 			//$data['status'] = $this->Msubiz->getModemStatus('viettel1');

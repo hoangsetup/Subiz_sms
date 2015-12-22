@@ -30,7 +30,7 @@ class Msubiz extends CI_Model
 		$tolerant = 1;
 		$this->db->select('UpdatedInDB');
 		$this->db->order_by('UpdatedInDB', 'DESC');
-		$this->db->where('ID', $id_modem);
+		$this->db->where('IMEI', $id_modem);
 		$this->db->limit('1');
 		$last_active = $this->db->get('phones')->row_array();
 		if($last_active['UpdatedInDB'] != NULL){

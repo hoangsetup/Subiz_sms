@@ -6,15 +6,15 @@ $_class = '';
 $_stt = 'Unknown';
 foreach($devices as  $info){
 
-if($status[$info['ID']] == 1){
+if($status[$info['IMEI']] == 1){
 	$_class = 'label label-success';
 	$_stt = 'Connect';
 }
-if($status[$info['ID']] == 0){
+if($status[$info['IMEI']] == 0){
 	$_class = 'label label-danger';
 	$_stt = 'Disconnect';
 }
-if($status[$info['ID']] == -1){
+if($status[$info['IMEI']] == -1){
 	$_class = 'label label-default';
 	$_stt = 'Unknown';
 }
@@ -22,7 +22,7 @@ if($status[$info['ID']] == -1){
 //foreach ($devices as $info) {
 	?>
 <div class="panel panel-default">
-  <div class="panel-heading">ID: <?=$info['ID']?> <label class="<?php echo $_class ?>"><?=$_stt?></label></div>
+  <div class="panel-heading"><?=$info['ID']?> <label class="<?php echo $_class ?>"><?=$_stt?></label></div>
   <div class="panel-body">
     <div class="list-group">
       <button type="button" class="list-group-item list-group-item-default">Operating System: <?=PHP_OS?></button>
