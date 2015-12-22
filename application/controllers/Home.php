@@ -208,6 +208,12 @@
 			//$data['status'] = $this->Msubiz->getModemStatus('viettel1');
 			$this->load->view('gammu_info', $data);
 		}
+
+		public function deleteoldsms($date = 15)
+		{
+			header('Content-Type: application/json');
+			echo json_encode($this->Msms->deleteOldSms($date));
+		}
 	}
 
 ?>
