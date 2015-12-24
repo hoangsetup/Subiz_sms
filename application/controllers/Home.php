@@ -112,8 +112,8 @@
 			$rules = $this->Mrule->getAllRules();
 			if(!$sms || !$rules)
 				exit();
-			$flag = FALSE;
 			foreach ($rules as $rule) {
+				$flag = FALSE;
 				if(!$rule['IsActive'])
 					continue;
 				if($rule['SenderNumber'] === $sms['SenderNumber']){
