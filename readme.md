@@ -89,15 +89,15 @@ Bonus: I run application on Raspi, have about 100sms/day the db is extended ever
 
 * Information Devices: (gammu-smsd can run with multi config(devices))
 
-![alt text](https://files.slack.com/files-pri/T02870PT5-F0H6102AD/sr1.png "Screen 1")
+![](https://files.slack.com/files-pri/T02870PT5-F0H6102AD/sr1.png)
 
 
 
 - Log (status: Red - can not transfer, Green - transfer ok, White - no transfer
-![alt text](https://files.slack.com/files-pri/T02870PT5-F0H5XGUUD/sr2.png "Screen 2")
+![](https://files.slack.com/files-pri/T02870PT5-F0H5XGUUD/sr2.png)
 
 
 
 - Config rule to filter sms
 
-![alt text](https://files.slack.com/files-pri/T02870PT5-F0H5WAK52/sr3.png "Screen 3")
+![](https://files.slack.com/files-pri/T02870PT5-F0H5WAK52/sr3.png)
