@@ -1,4 +1,4 @@
-## Subiz_sms foward - Open source Web based transfer sms to Email
+# Subiz_sms - Open source Web based transfer sms to mail
 
 Subiz_sms is open source web-based SMS (Short Message Service) transfer service, it use gammu-smsd (part of gammu family - http://wammu.eu/gammu/ ) as SMS gateway engine to deliver and retrieve messages from your phone/modem and user Mailgun(Tranditional Email Api Service - https://www.mailgun.com/ ) to transfer sms.
 
@@ -10,13 +10,13 @@ I run my application on Raspberry Pi (ram 434MB, OS Rapbian)
 
 You need to install and configure this first:
 ```
-    apache2
-    php5.x.x
-    PHP-CLI
-    MySQL 5.x.x
-    php-curl
+apache2
+php5.x.x
+PHP-CLI
+MySQL 5.x.x
+php-curl
 ```
-(You can follow theard https://www.raspberrypi.org/learning/lamp-web-server-with-wordpress/worksheet/ to install LAMP)
+(You can follow thread https://www.raspberrypi.org/learning/lamp-web-server-with-wordpress/worksheet/ to install LAMP)
 ### !Important
 gammu-smsd, make sure it is already running and configured.
 ### Installation
@@ -46,7 +46,7 @@ user = username #Your mysql username
 password = password # Your mysql password
 pc = localhost #Server mysql ip
 ```
-in finaly the file content maybe like this
+in finally the file content maybe like this
 ```
 [gammu]
 device = /dev/ttyUSB1
@@ -70,7 +70,7 @@ Set correct path on daemon.sh (make sure that the this file is executable )
 ```
 #!/bin/sh
 #Configure this (use absolute path)
-PHP=/usr/bin/php5 # php cli path  -  check if  is cocrect if gammu-smsd return log 'Error status 126' or executable permission of .sh file.
+PHP=/usr/bin/php5 # php cli path  -  check if  is correct if gammu-smsd return log 'Error status 126' or executable permission of .sh file.
 SUBIZ=/var/www/html/subiz_sms/scripts/subiz.php # change this your case.
 #Execute
 $PHP $SUBIZ
@@ -87,17 +87,17 @@ Bonus: I run application on Raspi, have about 100sms/day the db is extended ever
 
 ### User manual
 
-* Infomation Devices: (gammu-smsd can run with multi config(devices))
+* Information Devices: (gammu-smsd can run with multi config(devices))
 
 ![alt text](https://files.slack.com/files-pri/T02870PT5-F0H6102AD/sr1.png "Screen 1")
 
 
 
-- Log (status: Red - canot transfer, Green - transfer ok, White - no transfer
+- Log (status: Red - can not transfer, Green - transfer ok, White - no transfer
 ![alt text](https://files.slack.com/files-pri/T02870PT5-F0H5XGUUD/sr2.png "Screen 2")
 
 
 
-- Config rule to fillter sms
+- Config rule to filter sms
 
 ![alt text](https://files.slack.com/files-pri/T02870PT5-F0H5WAK52/sr3.png "Screen 3")
