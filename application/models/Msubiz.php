@@ -11,19 +11,19 @@ class Msubiz extends CI_Model
 		$this->load->database();
 	}
 
-	public function getAllDeviceInfo()
+	public function getalldeviceinfo()
 	{
 		$query = $this->db->get('phones');
 		return $query->result_array();
 	}
 
-	public function getGammuInfo()
+	public function getgammuinfo()
 	{
 		$query = $this->db->get('gammu');
 		return $query->row_array();
 	}
 
-	public function getModemStatus($id_modem)
+	public function getmodemstatus($id_modem)
 	{
 
 		//$this->db->from('phones');

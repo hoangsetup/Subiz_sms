@@ -11,13 +11,13 @@
  		$this->load->database();
  	}
 
- 	function getAllSmses(){
+ 	function getallsmses(){
  		$this->db->order_by('ID DESC');
  		$query = $this->db->get("inbox");
  		return $query->result_array();
  	}
 
- 	function getIncommingSms(){
+ 	function getincommingsms(){
  		$this->db->order_by('ID DESC');
  		$query = $this->db->get('inbox');
  		return $query->row_array();

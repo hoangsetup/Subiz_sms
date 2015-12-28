@@ -35,7 +35,7 @@
     function onEditRuleClick(id){
       $.ajax({
         method: 'POST',
-        url: server_url + 'index.php/Home/RuleControler',
+        url: server_url + 'index.php/Home/rulecontroler',
         data: {'action': 'getdetail', 'id': id},
         dataType: "text",  
             cache:false,
@@ -50,11 +50,11 @@
       });
     }
 
-    function onDeleteRuleClick (id) {
+    function ondeleteruleClick (id) {
       if (confirm('Are you sure?')) {
         $.ajax({
           method: 'POST',
-          url: server_url + 'index.php/Home/RuleControler',
+          url: server_url + 'index.php/Home/rulecontroler',
           data: {'action': 'delete', 'id': id},
           dataType: "text",  
             cache:false,
@@ -163,7 +163,7 @@
                 <div class="btn-group btn-group" >
                   <button type="button" class="btn btn-warning" onclick="onEditRuleClick('<?=$rule['Id']?>');"><span class="glyphicon glyphicon-pencil"></span></button>
 
-                  <button type="button" class="btn btn-danger" onclick="onDeleteRuleClick(<?=$rule['Id']?>);"><span class="glyphicon glyphicon-remove"></span></button>
+                  <button type="button" class="btn btn-danger" onclick="ondeleteruleClick(<?=$rule['Id']?>);"><span class="glyphicon glyphicon-remove"></span></button>
                 </div>
               </td>
             </tr>             
@@ -185,7 +185,7 @@
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <form action="<?php $this->load->helper('url'); echo base_url().'index.php/Home/RuleControler'; ?>" method="POST" rule="form">
+    <form action="<?php $this->load->helper('url'); echo base_url().'index.php/Home/rulecontroler'; ?>" method="POST" rule="form">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal">&times;</button>

@@ -25,9 +25,9 @@ class Login extends CI_Controller
 		redirect('login');
 	}
 
-	function ChangePassword()
+	function changepassword()
 	{
-		if($_POST) $this->Muser->ChangePassword();
+		if($_POST) $this->Muser->changepassword();
 		redirect('login');
 	}
 }

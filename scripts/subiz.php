@@ -5,6 +5,6 @@ if(php_sapi_name() != 'cli' && !empty($_SERVER['REMOTE_ADDR'])) exit("Access Den
 // Please configure this
 $url = "http://localhost/subiz_sms";
 
-fclose(fopen($url."/index.php/Home/triggerIcommingSms/", "r"));
+fclose(fopen($url."/index.php/Home/triggerincommingsms/", "r"));
 
 ?>

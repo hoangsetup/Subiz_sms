@@ -51,7 +51,7 @@
   <div class="modal-dialog">
 
     <!-- Modal content-->
-    <form action="<?php $this->load->helper('url'); echo base_url().'index.php/Login/changePassword'; ?>" method="POST" rule="form">
+    <form action="<?php $this->load->helper('url'); echo base_url().'index.php/Login/changepassword'; ?>" method="POST" rule="form">
       <div class="modal-content">
         <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal">&times;</button>

@@ -30,7 +30,7 @@
 			else $this->session->set_userdata('errorlogin', 'Your username or password are incorrect.');
 		}
 
-		function changePassword(){
+		function changepassword(){
 			$username = $this->input->post('username');
 			$oldpass = sha1($this->input->post('oldpassword'));
 			$newpass = sha1($this->input->post('newpassword'));

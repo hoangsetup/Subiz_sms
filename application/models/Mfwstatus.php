@@ -11,11 +11,11 @@
 			$this->load->database();
 		}
 
-		function addFwstatus($status){
+		function addfwstatus($status){
 			$this->db->insert('fw_status', $status);
 		}
 
-		function getStatusBySmsId($smsid = -1){
+		function getstatusbysmsid($smsid = -1){
 			$this->db->where('id_inbox', $smsid);
 			$query = $this->db->get('fw_status');
 			return $query->row_array();

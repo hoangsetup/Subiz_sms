@@ -11,30 +11,30 @@
 			$this->load->database();
 		}
 
-		function getAllRules()
+		function getallrules()
 		{
 			$this->db->order_by('TimeUpdate DESC');
 			$query = $this->db->get('rules');
 			return $query->result_array();
 		}
 
-		function addRule($rule){
+		function addrule($rule){
 			$this->db->insert('rules', $rule);
 		}
 
-		function getRuleById($id = '')
+		function getrulebyid($id = '')
 		{
 			$this->db->where('Id', $id);
 			$query = $this->db->get('rules');
 			return $query->row_array();
 		}
 
-		function updateRule($newRule, $id = -1){
+		function updaterule($newRule, $id = -1){
 			$this->db->where('Id', $id);
 			$this->db->update('rules', $newRule);
 		}
 
-		function deleteRule($id= -1)
+		function deleterule($id= -1)
 		{
 			$this->db->where('Id', $id);
 			$this->db->delete('rules');

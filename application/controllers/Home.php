@@ -22,13 +22,13 @@
 			}
 			$rules = array();
 			$smses = array();
-			$temp_smses = $this->Msms->getAllSmses();
-			$temp_rules = $this->Mrule->getAllRules();
+			$temp_smses = $this->Msms->getallsmses();
+			$temp_rules = $this->Mrule->getallrules();
 			foreach ($temp_smses as $sms) {
-				$sms['fwstatus'] = $this->Mfwstatus->getStatusBySmsId($sms['ID']);
+				$sms['fwstatus'] = $this->Mfwstatus->getstatusbysmsid($sms['ID']);
 				array_push($smses, $sms);
 			}
-			$data['rules'] = $this->Mrule->getAllRules();
+			$data['rules'] = $this->Mrule->getallrules();
 			$data['smses'] = $smses;
 			$this->load->view('view_layout', $data);
 		}
@@ -37,18 +37,18 @@
 		{
 			$rules = array();
 			$smses = array();
-			$temp_smses = $this->Msms->getAllSmses();
-			$temp_rules = $this->Mrule->getAllRules();
+			$temp_smses = $this->Msms->getallsmses();
+			$temp_rules = $this->Mrule->getallrules();
 			foreach ($temp_smses as $sms) {
-				$sms['fwstatus'] = $this->Mfwstatus->getStatusBySmsId($sms['ID']);
+				$sms['fwstatus'] = $this->Mfwstatus->getstatusbysmsid($sms['ID']);
 				array_push($smses, $sms);
 			}
-			$data['rules'] = $this->Mrule->getAllRules();
+			$data['rules'] = $this->Mrule->getallrules();
 			$data['smses'] = $smses;
 			$this->load->view('home', $data);
 		}
 
-		public function RuleControler()
+		public function rulecontroler()
 		{
 			//Get detail view
 			if($this->input->is_ajax_request()){
@@ -59,11 +59,11 @@
 				$action = $_POST['action'];
 				switch ($action) {
 					case 'getdetail':
-						$data['rule'] = $this->Mrule->getRuleById($_POST['id']);
+						$data['rule'] = $this->Mrule->getrulebyid($_POST['id']);
 						$this->load->view('edit_rule', $data);
 						break;
 					case 'delete':
-						$this->Mrule->deleteRule($_POST['id']);
+						$this->Mrule->deleterule($_POST['id']);
 						echo 'Done!';
 						break;
 					default:
@@ -85,7 +85,7 @@
 							'Subject' => $_POST['Subject'],
 							'IsActive' => ($_POST['IsActive'] == 'on')?'1': '0'
 						);
-						$this->Mrule->updateRule($rule, $_POST['id']);
+						$this->Mrule->updaterule($rule, $_POST['id']);
 					}else{ // Addnew
 						$rule = array(
 							'TimeUpdate' => date("Y-m-d H:i:s"),
@@ -98,18 +98,18 @@
 							'Subject' => $_POST['Subject'],
 							'IsActive' => ($_POST['IsActive'] == 'on')?'1': '0'
 						);
-						$this->Mrule->addRule($rule);
+						$this->Mrule->addrule($rule);
 					}
 					redirect('', 'refresh');
 				}
 			}
 		}
 
-		public function triggerIcommingSms()
+		public function triggerincommingsms()
 		{
 
-			$sms = $this->Msms->getIncommingSms();
-			$rules = $this->Mrule->getAllRules();
+			$sms = $this->Msms->getincommingsms();
+			$rules = $this->Mrule->getallrules();
 			if(!$sms || !$rules)
 				exit();
 			foreach ($rules as $rule) {
@@ -165,7 +165,7 @@
 					'message' => $result
 				);
 			}
-			$this->Mfwstatus->addFwstatus($status);
+			$this->Mfwstatus->addfwstatus($status);
 		}
 
 		public function checkmailgun()
@@ -198,14 +198,14 @@
 
 		public function gammuinfo()
 		{
-			$data['devices'] = $this->Msubiz->getAllDeviceInfo();
-			$data['gammu'] = $this->Msubiz->getGammuInfo();
+			$data['devices'] = $this->Msubiz->getalldeviceinfo();
+			$data['gammu'] = $this->Msubiz->getgammuinfo();
 			$stt = array();
 			foreach($data['devices'] as $device){
-				$stt[$device['IMEI']] = $this->Msubiz->getModemStatus($device['IMEI']);
+				$stt[$device['IMEI']] = $this->Msubiz->getmodemstatus($device['IMEI']);
 			}
 			$data['status'] = $stt;
-			//$data['status'] = $this->Msubiz->getModemStatus('viettel1');
+			//$data['status'] = $this->Msubiz->getmodemstatus('viettel1');
 			$this->load->view('gammu_info', $data);
 		}
 
