@@ -104,6 +104,23 @@
 				}
 			}
 		}
+		public function is_filtered($sms, $rule){
+			$flag = FALSE;
+			if($rule['SenderNumber'] === $sms['SenderNumber']){
+				if((!isset($rule['HasTheWords']) || trim($rule['HasTheWords']) === '')){
+					$flag = true;
+				}else if(strpos($sms['TextDecoded'], $rule['HasTheWords']) !== FALSE){
+					$flag = true;
+				}
+			}else if((!isset($rule['SenderNumber']) || trim($rule['SenderNumber']) === '')){
+				if((!isset($rule['HasTheWords']) || trim($rule['HasTheWords']) === '')){
+					$flag = true;
+				}else if(strpos($sms['TextDecoded'], $rule['HasTheWords']) !== FALSE){
+					$flag = true;
+				}
+			}
+			return $flag;
+		}
 
 		public function triggerincommingsms()
 		{
@@ -113,24 +130,43 @@
 			if(!$sms || !$rules)
 				exit();
 			foreach ($rules as $rule) {
-				$flag = FALSE;
 				if(!$rule['IsActive'])
 					continue;
-				if($rule['SenderNumber'] === $sms['SenderNumber']){
-					if((!isset($rule['HasTheWords']) || trim($rule['HasTheWords']) === '')){
-						$flag = true;
-					}else if(strpos($sms['TextDecoded'], $rule['HasTheWords']) !== FALSE){
-						$flag = true;
-					}
-				}else if((!isset($rule['SenderNumber']) || trim($rule['SenderNumber']) === '')){
-					if((!isset($rule['HasTheWords']) || trim($rule['HasTheWords']) === '')){
-						$flag = true;
-					}else if(strpos($sms['TextDecoded'], $rule['HasTheWords']) !== FALSE){
-						$flag = true;
-					}
-				}
-				if($flag !== FALSE){
+				$flag = FALSE;
+				if($this->is_filtered($sms, $rule) !== FALSE){
 					$this->send_sms_to_mailgun($sms, $rule);
+					$flag = TRUE;
+				}
+				error_log('----------IcommingMessage------------');
+				error_log('SMS: '.json_encode($sms));
+				error_log('Rule: '.json_encode($rule));
+				error_log('Is filtered: '. $flag);
+				error_log('----------//IcommingMessage----------');
+			}
+			$this->check_resend_sms();
+		}
+
+		public function check_resend_sms()
+		{
+			$rules = $this->Mrule->getallrules();
+			$smses = array();
+			$temp_smses = $this->Msms->getallsmses();
+			foreach ($temp_smses as $sms) {
+				$sms['fwstatus'] = $this->Mfwstatus->getstatusbysmsid($sms['ID']);
+				array_push($smses, $sms);
+			}
+			foreach ($smses as $sms) {
+				foreach ($rules as $rule) {
+					$flag = FALSE;
+					if(!$rule['IsActive'])
+						continue;
+					if($this->is_filtered($sms, $rule) !== FALSE && isset($sms['fwstatus']) && $sms['fwstatus'] == 0){
+						$this->send_sms_to_mailgun($sms, $rule);
+						error_log('----------ResendMessage----------');
+						error_log('SMS: '.json_encode($sms));
+						error_log('Rule: '.json_encode($rule));
+						error_log('----------//ResendMessage----------');
+					}
 				}
 			}
 		}

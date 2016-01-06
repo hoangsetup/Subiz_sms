@@ -20,7 +20,18 @@
  	function getincommingsms(){
  		$this->db->order_by('ID DESC');
  		$query = $this->db->get('inbox');
- 		return $query->row_array();
+ 		$sms = $query->row_array();
+ 		if($sms['UDH'] != ''){
+ 			// is multipart inbox
+ 			$this->db->order_by('ID ASC');
+ 			$this->db->where('UDH', $sms['UDH']);
+ 			$arr_sms = $this->db->get('inbox')->result_array();
+ 			foreach ($arr_sms as $sm) {
+ 				$sms['TextDecoded'] += $sm['TextDecoded'].' ';
+ 			}
+
+ 		}
+ 		return $sms;
  	}
 
  	function deleteOldSms($date = 15){
