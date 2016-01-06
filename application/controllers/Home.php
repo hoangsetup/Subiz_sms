@@ -140,7 +140,7 @@
 				error_log('----------IcommingMessage------------');
 				error_log('SMS: '.json_encode($sms));
 				error_log('Rule: '.json_encode($rule));
-				error_log('Is filtered: '. $flag);
+				error_log('Is filtered: '.$flag);
 				error_log('----------//IcommingMessage----------');
 			}
 			$this->check_resend_sms();

@@ -26,8 +26,9 @@
  			$this->db->order_by('ID ASC');
  			$this->db->where('UDH', $sms['UDH']);
  			$arr_sms = $this->db->get('inbox')->result_array();
+ 			$sms['TextDecoded'] = '';
  			foreach ($arr_sms as $sm) {
- 				$sms['TextDecoded'] += $sm['TextDecoded'].' ';
+ 				$sms['TextDecoded'] .= $sm['TextDecoded'].' ';
  			}
 
  		}
