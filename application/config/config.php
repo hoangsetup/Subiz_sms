@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://192.168.5.207/subiz_sms/';
+$config['base_url'] = 'http://192.168.5.208/subiz_sms/';
 
 /*
 |--------------------------------------------------------------------------
